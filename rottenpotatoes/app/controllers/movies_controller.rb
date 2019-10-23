@@ -1,5 +1,7 @@
 class MoviesController < ApplicationController
   
+  include MoviesHelper
+  
   def movie_params
     params.require(:movie).permit(:title, :rating, :description, :release_date, :director)
   end
@@ -12,12 +14,7 @@ class MoviesController < ApplicationController
 
   def index
     sort = params[:sort] || session[:sort]
-    case sort
-    when 'title'
-      ordering,@title_header = {:title => :asc}, 'hilite'
-    when 'release_date'
-      ordering,@date_header = {:release_date => :asc}, 'hilite'
-    end
+    ordering, @title_header, @date_header = MoviesHelper.get_sort_order(sort)
     @all_ratings = Movie.all_ratings
     @selected_ratings = params[:ratings] || session[:ratings] || {}
     
@@ -60,5 +57,13 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
-
+  
+  def similar_movies
+    @similar = Movie.similar_movies(params[:title])
+    if @similar.nil?
+      flash[:notice] = "'#{params[:title]}' has no director info"
+      redirect_to movies_path
+    end
+    @director = Movie.find_by(title: params[:title]).director
+  end
 end

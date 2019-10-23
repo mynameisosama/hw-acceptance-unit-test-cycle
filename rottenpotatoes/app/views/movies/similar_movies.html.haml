@@ -1,0 +1,13 @@
+-#  This file is app/views/movies/director.html.haml
+%h3 Movies by #{@director}
+
+%table.table-striped.col-md-10#movies
+  %thead
+    %tr
+      %th Movie Title
+  %tbody
+    - @similar.each do |title|
+      %tr
+        %td= title
+
+= link_to 'Back to movie list', movies_path
