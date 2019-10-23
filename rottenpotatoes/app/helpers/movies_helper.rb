@@ -1,9 +1,4 @@
 module MoviesHelper
-  # Checks if a number is odd:
-  def oddness(count)
-    count.odd? ?  "odd" :  "even"
-  end
-  
   def self.get_sort_order(sort)
     case sort
       when 'title'

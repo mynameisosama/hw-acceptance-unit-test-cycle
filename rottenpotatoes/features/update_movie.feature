@@ -1,8 +1,8 @@
-Feature: display list of movies sorted by different criteria
+Feature: update certain information of a mvoie
  
-  As an avid moviegoer
-  So that I can quickly browse movies based on my preferences
-  I want to see movies sorted by title or release date
+  As an avid movie critic
+  So that I can quickly update any errors about movie
+  I want to update a some information of a movie
 
 Background: movies have been added to database
   
@@ -21,10 +21,11 @@ Background: movies have been added to database
 
   And I am on the RottenPotatoes home page
 
-Scenario: sort movies alphabetically
-  When I follow "Movie Title"
-  Then I should see "Aladdin" before "Amelie"
-
-Scenario: sort movies in increasing order of release date
-  When I follow "Release Date"
-  Then I should see "Aladdin" before "Amelie"
+Scenario: Add Description to the movie
+  When I go to the edit page for "Aladdin"
+  And  I fill in "Description" with "Arabian Nights!!!"
+  And  I press "Update Movie Info"
+  Then the description of "Aladdin" should be "Arabian Nights!!!"
+  And I should be on the details page for "Aladdin"
+  And I should see "Aladdin was successfully updated."
+ 

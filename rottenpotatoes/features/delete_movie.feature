@@ -1,8 +1,8 @@
-Feature: display list of movies sorted by different criteria
+Feature: remove a movie from rottenpotatoes
  
-  As an avid moviegoer
-  So that I can quickly browse movies based on my preferences
-  I want to see movies sorted by title or release date
+  As an avid movie critic
+  So that I can keep my website up-to-date
+  I want to remove a movie
 
 Background: movies have been added to database
   
@@ -21,10 +21,9 @@ Background: movies have been added to database
 
   And I am on the RottenPotatoes home page
 
-Scenario: sort movies alphabetically
-  When I follow "Movie Title"
-  Then I should see "Aladdin" before "Amelie"
-
-Scenario: sort movies in increasing order of release date
-  When I follow "Release Date"
-  Then I should see "Aladdin" before "Amelie"
+Scenario: Remove movie from rottenpotatoes
+  When I go to the details page for "Aladdin"
+  And  I press "Delete"
+  Then  I should be on the home page
+  And   I should see "Movie 'Aladdin' deleted."
+ 
